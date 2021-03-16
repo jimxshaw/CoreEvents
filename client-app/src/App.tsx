@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
+import { Header, List } from 'semantic-ui-react';
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -13,16 +14,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <ul>
-          {events.map((event: any) => (
-            <li key={event.id}>
-              {event.title}
-            </li>
-          ))}
-        </ul>
-      </header>
+    <div>
+      <Header as='h2' icon='users' content='CoreEvents' />
+        <List>
+        {events.map((event: any) => (
+          <List.Item key={event.id}>
+            {event.title}
+          </List.Item>
+        ))}
+        </List>
     </div>
   );
 }
