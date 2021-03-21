@@ -26,5 +26,13 @@ namespace API.Controllers
     {
       return Ok(await Mediator.Send(new Create.Command { Event = input }));
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> EditEvent(Guid id, Event eventToEdit)
+    {
+      eventToEdit.Id = id;
+
+      return Ok(await Mediator.Send(new Edit.Command { Event = eventToEdit }));
+    }
   }
 }
