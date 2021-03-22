@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Persistence;
@@ -16,9 +17,11 @@ namespace Application.Events
     public class Handler : IRequestHandler<Command>
     {
       private readonly DataContext _context;
+      private readonly IMapper _mapper;
 
-      public Handler(DataContext context)
+      public Handler(DataContext context, IMapper mapper)
       {
+        _mapper = mapper;
         _context = context;
       }
 
@@ -26,7 +29,7 @@ namespace Application.Events
       {
         var eventToEdit = await _context.Events.FindAsync(request.Event.Id);
 
-        eventToEdit.Title = request.Event.Title ?? eventToEdit.Title;
+        _mapper.Map(request.Event, eventToEdit);
 
         await _context.SaveChangesAsync();
 
