@@ -25,7 +25,7 @@ namespace Application.Events
 
       public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
       {
-        var eventToDelete = _context.Events.FindAsync(request.Id);
+        var eventToDelete = await _context.Events.FindAsync(request.Id);
 
         _context.Remove(eventToDelete);
 
